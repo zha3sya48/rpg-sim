@@ -1,0 +1,188 @@
+#window-All{
+    width: 100%;
+    height: 100%;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+#window-LeftArea{
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+#window-RightArea{
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+#window-Right-TopArea{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    /*flex-direction: column;*/
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+#window-Right-BottomArea{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    /*flex-direction: column;*/
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+}
+
+#window-SettingTab{
+    width:100%;
+    height: 100vh;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(to bottom, #111, #333);
+}
+#window-BattleView {
+    width: 40%;
+    height: 100%;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #111, #333);
+}
+#window-Prompt{
+    width: 60%;
+    height: 100%;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(to bottom, #111, #394038);
+}
+#window-Comand{
+    width: 40%;
+    height: 100%;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(to bottom, #111, #394038);
+}
+#window-Operate{
+    width: 60%;
+    height: 100%;
+    border: 4px solid var(--window-border);
+    box-sizing: var(--window-box-sizing);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(to bottom, #111, #394038);
+}
+
+.sprite-containerB {
+    width: 30%;
+    height: 100%;
+    border: 1px dashed #555; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sprite-containerB img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+#message-log {
+    flex: 2;
+    padding: 15px;
+    line-height: 1.5;
+    overflow-y: auto;
+    /*border-right: 2px solid var(--window-border);*/
+}
+.message-log-game{
+    font-size: 18px;
+}
+.message-log-spreadsheet{
+    font-size: 18px;
+    color: #2fa758;
+    opacity: 0.9;
+}
+.message-log-error{
+    font-size: 18px;
+    color: #ff4040;
+    opacity: 0.9;
+}
+
+.cmd-pallet {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.cmd-btnB {
+    width: 90%;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+}
+
+.cmd-btnB:hover {
+    background: white;
+    color: black;
+}
+
+.test-style{
+    width:95%;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+}
+.test-style:hover {
+    background: white;
+    color: black;
+}
+
+.ExplainWindowText{
+    font-size: 14px;
+    text-align: center;
+    text-decoration:underline;
+    opacity: 0.7;
+    
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}

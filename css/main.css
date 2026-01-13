@@ -1,0 +1,19 @@
+:root {
+    --bg-color: #0c0c0c;
+    --window-border: #ffffff;
+    --window-box-sizing: border-box;
+    --text-color: #ffffff;
+    --ai-bg: rgba(0, 0, 50, 0.8);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}

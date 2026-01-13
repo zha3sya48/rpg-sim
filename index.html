@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Battle Simulator</title>
+    <link rel="stylesheet" href="css\\main.css">
+    <link rel="stylesheet" href="css\\window.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="window-All">
+    <div id="window-LeftArea">
+        <div id="window-SettingTab">
+            <div class="ExplainWindowText">SettingsWindow</div>
+            <div class="cmd-pallet">
+                <button class="test-style">⚙️設定</button>
+                <button class="test-style" onclick="syncData()">🔄️SS同期</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="window-RightArea">
+        <div id="window-Right-TopArea">
+            <div id="window-BattleView">
+                <div class="ExplainWindowText">BattleWindow</div>
+                <div class="sprite-containerB">
+                    <img src="image\\enemy\\monster06.png" id="enemy-img">
+                </div>
+            </div>
+            <div id="window-Prompt">
+                <div class="ExplainWindowText">PromptWindow</div>
+                <div id="message-log">
+                    <div class="message-log-game">
+                        モンスターがあらわれた！<br>
+                        コマンドを入力してください。
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="window-Right-BottomArea">
+            <div id="window-Comand">
+            <div class="ExplainWindowText">CommandWindow</div>
+                <div class="cmd-pallet">
+                    <button class="cmd-btnB" onclick="playTurn('ATTACK')">▶ たたかう</button>
+                    <button class="cmd-btnB" onclick="playTurn('SKILL')">▶ スキル</button>
+                    <button class="cmd-btnB" onclick="playTurn('DEFEND')">▶ ぼうぎょ</button>
+                </div>
+            </div>
+            <div id="window-Operate">
+                <div class="ExplainWindowText">OperateWindow</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--div id="game-container">
+    <div id="ai-assistant">
+        <strong>Gemini Assist</strong>
+        <p id="ai-hint">準備完了</p>
+        <button onclick="askAiAction()">アドバイスを求める</button>
+    </div>
+
+    <div id="battle-view">
+        <div class="sprite-container">
+            <img src="E:\GoogleDrive\zha3sya8\application\戦闘シミュレーター\image\enemy\monster06.png" id="enemy-img">
+        </div>
+    </div>
+
+    <div id="ui-area">
+        <div id="message-log">
+            モンスターがあらわれた！<br>
+            コマンドを入力してください。
+        </div>
+        <div id="commands">
+            <button class="cmd-btn" onclick="playTurn('ATTACK')">▶ たたかう</button>
+            <button class="cmd-btn" onclick="playTurn('SKILL')">▶ スキル</button>
+            <button class="cmd-btn" onclick="playTurn('DEFEND')">▶ ぼうぎょ</button>
+            <button class="cmd-btn" onclick="syncData()">▶ 同期(SS)</button>
+        </div>
+    </div>
+</div-->
+
+<script src="script.js"></script>
+</body>
+
+</html>
