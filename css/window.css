@@ -132,6 +132,12 @@
     color: #ff4040;
     opacity: 0.9;
 }
+.message-log-gemini{
+    font-size: 18px;
+    color: #4285F4;
+    opacity: 0.9;
+}
+
 
 .cmd-pallet {
     flex: 1;
