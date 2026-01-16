@@ -192,3 +192,55 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* ログ内の入力コンテナ */
+.log-input-container {
+    background: rgba(0, 0, 0, 0.8); /* 背景を黒に */
+    border: 2px solid #ffffff;     /* 白い枠線 */
+    padding: 8px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    font-family: inherit;          /* ログのフォントを継承 */
+}
+
+/* 入力欄本体 */
+.log-input-field {
+    background: transparent;       /* 背景を透明に */
+    border: none;
+    color: #ffffff;                /* 文字は白 */
+    outline: none;
+    flex-grow: 1;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+/* 入力欄の左側の「▶」 */
+.log-input-container::before {
+    content: "▶";
+    color: #ffffff;
+    margin-right: 10px;
+    animation: blink 1s step-end infinite; /* 点滅させてレトロ感を出す */
+}
+
+/* 送信ボタン */
+.log-input-button {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.log-input-button:hover {
+    background: #cccccc;
+}
+
+/* 点滅アニメーション */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

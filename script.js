@@ -1,5 +1,5 @@
 let GAS_URL = null;
-let enemyImage = null;
+//let enemyImage = null;
 
 async function loadConfig() {
     try {
@@ -12,11 +12,11 @@ async function loadConfig() {
         //console.log(config);
 
         GAS_URL = config.GAS_url;
-        enemyImage = config.enemy_image;
+        //enemyImage = config.enemy_image;
 
         const enemy=document.getElementById("enemy-img");
-        console.log(enemyImage);
-        enemy.scr=enemyImage;
+        //console.log(enemyImage);
+        enemy.scr=config.enemy_image;
 
     } catch (error) {
         console.error("設定ファイルの読み込みに失敗しました:", error);
@@ -24,6 +24,7 @@ async function loadConfig() {
     }
 }
 loadConfig();
+//console.log(config.enemyImage);
 
 // GASのウェブアプリURLをここに貼り付け
 
@@ -87,49 +88,44 @@ function addLog(text,type) {
  * ログウィンドウに入力欄を追加する関数
  * @param {string} placeholder - 入力欄に表示するヒント
  */
-function addInputForm(placeholder = "Geminiに質問する...") {
+function addInputForm(placeholder = "どうする？") {
     const logWindow = document.getElementById('message-log');
 
-    // 1. コンテナの作成
     const container = document.createElement('div');
-    container.className = 'log-input-container'; // スタイル調整用
-    container.style = "display: flex; gap: 8px; margin-top: 10px; padding: 10px; background: #f0f4f9; border-radius: 8px;";
+    container.className = 'log-input-container'; // 上記CSSを適用
 
-    // 2. 入力欄の作成
     const input = document.createElement('input');
     input.type = 'text';
+    input.className = 'log-input-field';
     input.placeholder = placeholder;
-    input.style = "flex-grow: 1; border: 1px solid #ccc; border-radius: 4px; padding: 8px;";
 
-    // 3. 送信ボタンの作成
     const button = document.createElement('button');
-    button.innerText = "送信";
-    button.style = "padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;";
+    button.className = 'log-input-button';
+    button.innerText = "実行";
 
-    // 4. 送信イベントの定義
+    // 送信後の処理
     const handleSubmit = () => {
-        const question = input.value;
-        if (!question) return;
-
-        // 自分の質問をログに出す
-        addLog(`自分: ${question}`);
+        const text = input.value;
+        if (!text) return;
         
-        // 入力欄を消去（または無効化）
+        // 入力欄を消して、入力した内容をログに残す
         container.remove();
-
-        // Geminiへのリクエスト処理へ（仮）
-        askGemini(question);
+        addLog(`▶ ${text}`); 
+        
+        // ここでGemini APIなどを叩く
+        askGemini(text); 
     };
 
     button.onclick = handleSubmit;
     input.onkeydown = (e) => { if (e.key === 'Enter') handleSubmit(); };
 
-    // 5. ログウィンドウに追加
     container.appendChild(input);
     container.appendChild(button);
     logWindow.appendChild(container);
-
-    // 自動スクロール
+    
+    // 登場と同時にフォーカスを当てる
+    setTimeout(() => input.focus(), 10);
+    
     logWindow.scrollTop = logWindow.scrollHeight;
 }
 /**
@@ -180,10 +176,46 @@ async function askGemini(ques) {
     addLog("Geminiが思考中...",'gemini');
     //queryField.value = ""; // 入力欄をクリア
 
+    console.log("Geminiへのリクエスト開始:", prompt); // これがコンソールに出るか確認
+    /*setTimeout(() => {
+        addLog("Gemini: 私はあなたの質問「" + ques + "」を受け取りました。",'gemini');
+    }, 1000);*/
+    //console.log(config.GEMINI_API_KEY);
     try {
-        // GASへリクエストを飛ばす
-        // payloadに 'type: "GEMINI"' などを入れるとGAS側で判定しやすいです
-        const response = await fetch(GAS_URL, {
+        // 1. JSONファイルからAPIキーを読み込む
+        const configResponse = await fetch('./non-share.json');
+        const config = await configResponse.json();
+        const API_KEY = config.GEMINI_API_KEY;
+        //console.log(API_KEY);
+
+        const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
+
+        // 2. Geminiに送るデータ（リクエストボディ）の作成
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{ text: ques }]
+                }]
+            })
+        };
+
+        // 3. 通信実行
+        //console.log("送信先URL:", URL);
+        const response = await fetch(URL, requestOptions);
+        const data = await response.json();
+
+        // 4. 返答の抽出と表示
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+            const answer = data.candidates[0].content.parts[0].text;
+            addLog(`Gemini: ${answer}`,'gemini');
+        } else {
+            addLog("Gemini: すまない！分からなかった！もう一度質問よろちゃん！",'gemini');
+            console.error("Unexpected response:", data);
+        }
+
+        /*const response = await fetch(config.GAS_url, {
             method: "POST",
             body: JSON.stringify({
                 action: "ask_gemini",
@@ -191,16 +223,17 @@ async function askGemini(ques) {
                 // 現在の敵のHPなどの状況も一緒に送ると、AIがより賢い回答をします
                 context: `敵の名前:${enemyStats.name}, 残りHP:${enemyStats.hp}`
             })
-        });
+        });*/
 
-        const result = await response.json();
+        //const result = await response.json();
         
         // 回答を表示
         //displayArea.innerText = result.answer; 
-        addLog(result.answer,'gemini');
+        //addLog(result.answer,'gemini');
 
     } catch (error) {
-        displayArea.innerText = "エラー：AIとの通信に失敗しました。";
-        console.error(error);
+        //displayArea.innerText = "エラー：AIとの通信に失敗しました。";
+        addLog("システム: 通信エラーが発生しました。コンソールを確認してください。",'error');
+        console.error("Error calling Gemini API:", error);
     }
 }
